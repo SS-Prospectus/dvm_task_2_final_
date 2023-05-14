@@ -1,6 +1,5 @@
 import 'model.dart';
 import 'User_Card.dart';
-import 'constants.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -8,20 +7,22 @@ import 'dart:convert';
 
 
 class UserList extends StatefulWidget {
-  UserList({required this.maxLat});
+  UserList({required this.maxLat, required this.searchtext});
 
   final double maxLat;
+  final String searchtext;
 
   @override
   _UserListState createState() => _UserListState();
 }
 
 class _UserListState extends State<UserList> {
-  late List<User> users;
+  late List<User_> users;
 
 
   @override
   void initState() {
+    users = [];
     super.initState();
     fetchData();
   }
@@ -29,7 +30,7 @@ class _UserListState extends State<UserList> {
   Future<void> fetchData() async {
     final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
     final data = jsonDecode(response.body) as List<dynamic>;
-    final users = data.map((e) => User(
+    final users = data.map((e) => User_(
       id: e['id'] as int,
       name: e['name'] as String,
       username: e['username'] as String,
@@ -61,27 +62,22 @@ class _UserListState extends State<UserList> {
   @override
   Widget build(BuildContext context) {
 
-    Color Cardcolor = kInactiveColor;
-    int state =0;
-    void updateCardColor() {
-      setState(() {
-        state = Cardcolor == kInactiveColor ? 1 : 0;
-        print('Card pressed');
-      });
-    }
 
-    return ListView(
-        children: [
-          ...users
-              .where((user) =>
-          double.parse(user.address.geo.lat) <= widget.maxLat)
-              .map((user) => UserCard(user: user,
-            CardColor: state == 0 ? kActiveColor : kInactiveColor,
-            onPress: updateCardColor,
-          ))
-              .toList(),
-        ],
-      );
+    return users == null ? Center(
+      child: CircularProgressIndicator(),
+    ) :
+    ListView(
+      shrinkWrap: true,
+      children: [
+        ...users
+            .where((user) =>
+        user.name.toLowerCase().contains(widget.searchtext.toLowerCase()) &&
+        double.parse(user.address.geo.lat) <= widget.maxLat)
+            .map((user) => UserCard(user: user,
+        ))
+            .toList(),
+      ],
+    );
     
   }
 }

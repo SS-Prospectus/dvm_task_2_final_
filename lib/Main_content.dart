@@ -1,4 +1,5 @@
 import 'package:dvm_task_2_final/User_List.dart';
+import 'package:dvm_task_2_final/constants.dart';
 import 'package:flutter/material.dart';
 
 class MainContent extends StatefulWidget {
@@ -8,8 +9,16 @@ class MainContent extends StatefulWidget {
 }
 
 class _MainContentState extends State<MainContent> {
+  TextEditingController _value = TextEditingController();
 
   double lat = 90;
+  late String searchtext = '';
+  void clear(){
+    setState(() {
+      searchtext ='';
+      _value.clear();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,22 +33,26 @@ class _MainContentState extends State<MainContent> {
                 alignment: Alignment.bottomCenter,
                 margin: EdgeInsets.fromLTRB(36, 36, 36, 15),
                 child: TextField(
-                  cursorColor: Color(0xFFC0C0C0),
+                  controller: _value,
+                  cursorColor: kLightColor,
                   style: TextStyle(
-                    color: Color(0xFFC0C0C0),
+                    color: kLightColor,
                   ),
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Color(0xFF20180B),
                     hintText: 'Search for name...',
                     hintStyle: TextStyle(
-                        color: Color(0xFFC0C0C0)
+                        color: kLightColor
                     ),
-                    suffixIcon: Icon(Icons.cancel_outlined,
-                      color: Color(0xFFC0C0C0),
+                    suffixIcon: GestureDetector(
+                      onTap: clear,
+                      child: Icon(Icons.cancel_outlined,
+                        color: kLightColor,
+                      ),
                     ),
                     prefixIcon: Icon(Icons.search,
-                      color: Color(0xFFC0C0C0),
+                      color: kLightColor,
                     ),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
@@ -50,6 +63,9 @@ class _MainContentState extends State<MainContent> {
                     ),
                   ),
                   onChanged: (value) {
+                    setState(() {
+                      searchtext = value;
+                    });
                     // Perform search operation here using the entered value
                   },
                 ),
@@ -77,7 +93,7 @@ class _MainContentState extends State<MainContent> {
                         Text('Latitude : ',
                           style: TextStyle(
                               fontSize: 20,
-                              color: Color(0xFFC0C0C0),
+                              color: kLightColor,
                               fontWeight: FontWeight.w700
                           ),
                         ),
@@ -92,7 +108,7 @@ class _MainContentState extends State<MainContent> {
                     ),
                     SliderTheme(
                       data: SliderTheme.of(context).copyWith(
-                        activeTrackColor: Color(0xFFC0C0C0),
+                        activeTrackColor: kLightColor,
                         thumbColor: Color (0xA1F8D848),
                         overlayColor: Color (0x33F8D848),
                         thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10.0),
@@ -118,7 +134,7 @@ class _MainContentState extends State<MainContent> {
             Expanded(
               flex: 18,
               child: Container(
-                  child: UserList(maxLat: lat)),
+                  child: UserList(maxLat: lat, searchtext: searchtext,)),
             ),
           ],
         ),

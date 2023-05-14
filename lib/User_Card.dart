@@ -1,14 +1,13 @@
 import 'package:dvm_task_2_final/constants.dart';
 import 'package:flutter/material.dart';
 import 'model.dart';
+import 'firebaseAD.dart';
 
 
 class UserCard extends StatefulWidget {
-  UserCard({required this.user, required this.CardColor, required this.onPress});
+  UserCard({required this.user});
 
-  final User user;
-  final Color CardColor;
-  final Function() onPress;
+  final User_ user;
 
   @override
   _UserCardState createState() => _UserCardState();
@@ -19,54 +18,49 @@ class _UserCardState extends State<UserCard> {
 
   @override
   Widget build(BuildContext context) {
+    bool isSelected = widget.user.state;
 
     return GestureDetector(
-      onTap: widget.onPress,
+      onTap: (){
+        setState(() {
+          widget.user.state = !widget.user.state;
+        });
+        if (isSelected) {
+          addFriend(widget.user);
+        }
+        else {
+          deleteFriend(widget.user);
+        }
+      },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 8.5, horizontal: 0),
         padding: EdgeInsets.fromLTRB(21.0, 26.0, 37.0, 27.0),
         decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             borderRadius: BorderRadius.circular(20),
-            color: widget.CardColor,
+            color: kInactiveColor,
             gradient: RadialGradient(
-              colors: kGradientA,
+              colors: isSelected == false ? kGradientA :kGradientB,
               radius: 50,
               focalRadius: 50.0,
-              center: Alignment.topLeft
+              center: Alignment.topLeft,
             )
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(widget.user.name,
-              style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700
-              ),
+              style: kCardNameText,
             ),
             Text(widget.user.email,
-              style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xFFF8D848)
-              ),
+              style: kCardEmailText,
             ),
             SizedBox(height: 12.0),
             Text(widget.user.address.street + ' - ' +widget.user.address.suite,
-              style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w300,
-                  color: Colors.white
-              ),
+              style: kCardAddressText(16),
             ),
             Text(widget.user.address.city+ ' - ' + widget.user.address.zipcode,
-              style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w300,
-                  color: Colors.white
-              ),
+              style: kCardAddressText(16),
             ),
             SizedBox(height: 15.0),
             Row(
@@ -75,21 +69,13 @@ class _UserCardState extends State<UserCard> {
                   color: Colors.white,
                 ),
                 Text(widget.user.address.geo.lat,
-                  style: TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white
-                  ),
+                  style: kCardAddressText(12),
                 ),
                 Expanded(child: SizedBox()),
                 Icon(Icons.access_time_filled,
                   color: Colors.white,),
                 Text(widget.user.address.geo.lng,
-                  style: TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white
-                  ),
+                  style: kCardAddressText(12),
                 )
               ],
             )

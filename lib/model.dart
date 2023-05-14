@@ -1,4 +1,4 @@
-class User {
+class User_ {
   int id;
   String name;
   String username;
@@ -7,8 +7,9 @@ class User {
   String phone;
   String website;
   Company company;
+  bool state;
 
-  User({
+  User_({
     required this.id,
     required this.name,
     required this.username,
@@ -17,6 +18,7 @@ class User {
     required this.phone,
     required this.website,
     required this.company,
+    this.state = false,
   });
 }
 
