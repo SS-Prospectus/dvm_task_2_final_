@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "553778715575",
+    "project_id": "dvm-task-2-final",
+    "storage_bucket": "dvm-task-2-41d6f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:553778715575:android:35c0d4959bb85d8ea42632",
+        "android_client_info": {
+          "package_name": "com.example.dvm_task_2_final"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "553778715575-1r1f116o3a0ci8s7f8v376322mruuj5q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMXX2WqLS6P_yYSMXClxf64qMQsC72vHI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "553778715575-1r1f116o3a0ci8s7f8v376322mruuj5q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
