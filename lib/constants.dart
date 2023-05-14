@@ -4,8 +4,8 @@ Color kInactiveColor = Color(0xFF20180B);
 Color kBGcolor = Color(0xFF03040A);
 Color kLightColor = Color(0xFFC0C0C0);
 
-List<Color> kGradientA = [Color(0x1DFFA800), Colors.white,Color(0xF09E6900),Color(0x00FFD000),Color(0xF0363636), Color(0x10FFFFFF),];
-List<Color> kGradientB = [Color(0xAAFFBF00),Color(0xFF20180B),Color(0x1DFFA800)];
+List<Color> kGradientA = [Color(0x1DFFA800),Color(0x9FFFC868),Colors.white60,Color(0xF09E6900),Color(0x00FFD000),Color(0xF0363636), Color(0x10FFFFFF),];
+List<Color> kGradientB = [Color(0x9AFFBF00),Color(0xFF20180B),Color(0xADFFA800)];
 
 TextStyle kCardNameText = TextStyle(
     fontSize: 20,

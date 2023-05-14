@@ -63,7 +63,7 @@ class _UserListState extends State<UserList> {
   Widget build(BuildContext context) {
 
 
-    return users == null ? Center(
+    return users == [] ? Center(
       child: CircularProgressIndicator(),
     ) :
     ListView(
