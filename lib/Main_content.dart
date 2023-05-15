@@ -78,6 +78,11 @@ class _MainContentState extends State<MainContent> {
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(20),
                     color: Color(0xFF20180B),
+                  gradient: RadialGradient(
+                    center: Alignment.topCenter,
+                    radius: 45,
+                    colors: kGradientA
+                  )
                 ),
                 margin: EdgeInsets.symmetric(vertical: 2,horizontal: 10),
                 alignment: Alignment.center,
