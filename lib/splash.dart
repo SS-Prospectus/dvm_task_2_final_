@@ -8,16 +8,38 @@ class splash extends StatefulWidget {
   State<splash> createState() => _splashState();
 }
 
-class _splashState extends State<splash> {
+class _splashState extends State<splash> with TickerProviderStateMixin {
+
+  double opacityLevel = 1.0;
 
   @override
   void initState() {
     super.initState();
     _navigatehome();
+    _changeacity();
   }
 
+  void _changeacity(){
+    setState(() {
+      opacityLevel = 0.0;
+    });
+    Tween<double> _opacityTween = Tween<double>(begin: 0.0, end: 1.0);
+    AnimationController _opacityController = AnimationController(
+      duration: const Duration(milliseconds: 1500),
+      vsync: this,
+    );
+    Animation<double> _opacityAnimation = _opacityTween.animate(_opacityController);
+    _opacityAnimation.addListener(() {
+      setState(() {
+        opacityLevel = _opacityAnimation.value;
+      });
+    });
+    _opacityController.forward();
+  }
+
+
   _navigatehome() async {
-    await Future.delayed(Duration(milliseconds: 1500),(){});
+    await Future.delayed(Duration(milliseconds: 2500),(){});
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Homepage()));
   }
 
@@ -36,9 +58,13 @@ class _splashState extends State<splash> {
             child: Expanded(
               child: Container(
                 child: Center(
-                  child: Image.asset('/Users/suryashsingh/dvm_task_2_final/assets/dvm_logo.png',
-                    height: 300,
-                    width: 250,
+                  child: AnimatedOpacity(
+                    opacity: opacityLevel,
+                    duration: const Duration(milliseconds: 1500),
+                    child: Image.asset('/Users/suryashsingh/dvm_task_2_final/assets/dvm_logo.png',
+                      height: 300,
+                      width: 250,
+                    ),
                   ),
                 ),
               ),

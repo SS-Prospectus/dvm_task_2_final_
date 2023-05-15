@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Color kInactiveColor = Color(0xFF20180B);
+Color CardColor = Color(0xFF20180B);
 Color kBGcolor = Color(0xFF03040A);
 Color kLightColor = Color(0xFFC0C0C0);
 

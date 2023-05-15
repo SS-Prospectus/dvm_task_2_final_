@@ -63,7 +63,7 @@ class _UserCardState extends State<UserCard> {
         decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             borderRadius: BorderRadius.circular(20),
-            color: kInactiveColor,
+            color: CardColor,
             gradient: RadialGradient(
               colors: isSelected == false ? kGradientA :kGradientB,
               radius: 20,
